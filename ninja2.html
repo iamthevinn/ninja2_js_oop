@@ -7,7 +7,7 @@
   <title>Page Title</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script>
-    function Ninja (ninjaName) {
+    function Ninja(ninjaName) {
       this.name = ninjaName;
       this.health = 100;
       const speed = 3;
@@ -16,10 +16,24 @@
         console.log("My ninja name is " + this.name);
       }
       this.showStats = function () {
-        console.log("Name: " + this.name + ", Health: " + this.health + ", Speed: " + speed + ", Strength: " + Strength)
+        console.log("Name: " + this.name + ", Health: " + this.health + ", Speed: " + speed + ", Strength: " +
+          Strength)
       }
       this.drinkShake = function () {
         this.health += 10;
+      }
+      this.punch = function (enemyNinja) {
+        if (enemyNinja instanceof Ninja) {
+          enemyNinja.health -= 5;
+          console.log(enemyNinja.name + " was punched by " + this.name + " and lost 5 Health!");
+        }
+      }
+      this.kick = function (enemyNinja) {
+        if (enemyNinja instanceof Ninja) {
+          let healthToSubtract = Strength * 15;
+          enemyNinja.health -= healthToSubtract;
+          console.log(enemyNinja.name + " was kicked by " + this.name + " and lost " + healthToSubtract + " Health!");
+        }
       }
     }
     const ninja1 = new Ninja("Hyabusa");
@@ -28,12 +42,19 @@
     ninja1.showStats();
     // -> "Name: Hayabusa, Health: 100, Speed: 3, Strength: 3"
     ninja1.drinkShake();
-    ninja1.showStats();// only change health to 110
-    ninja1.drinkShake();
-    ninja1.drinkShake();
-    ninja1.drinkShake();
-    ninja1.drinkShake();
-    ninja1.showStats(); // only change is to health at 150
+    ninja1.showStats(); // only change health to 110
+    const blueNinja = new Ninja("Goemon");
+    const redNinja = new Ninja("Bill Gates");
+    blueNinja.showStats()
+    redNinja.showStats()
+    redNinja.punch(blueNinja);
+    // -> "Goemon was punched by Bill Gates and lost 5 Health!"
+    blueNinja.showStats()
+    redNinja.showStats()
+    blueNinja.kick(redNinja);
+    blueNinja.showStats()
+    redNinja.showStats()
+
   </script>
 </head>
 
